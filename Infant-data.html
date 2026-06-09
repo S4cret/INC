@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Infant Data Form - Infant Nutrition Calendar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&display=swap');
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f7fa 100%);
+    color: #1c1c1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  .container {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  h1 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    user-select: none;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    color: #1d1d1f;
+  }
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  select {
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #c7c7cc;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    outline: none;
+  }
+  input::placeholder {
+    color: #999;
+  }
+  .radio-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .radio-group label {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #1d1d1f;
+    user-select: none;
+  }
+  .radio-group input[type="radio"] {
+    margin-right: 0.4rem;
+    cursor: pointer;
+  }
+  button.submit-btn {
+    background-color: #007aff;
+    border: none;
+    padding: 0.9rem 1rem;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  button.submit-btn:hover {
+    background-color: #005fcc;
+  }
+  @media (max-width: 500px) {
+    .container {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Formulir Data Bayi - Infant Nutrition Calendar">
+    <h1>Infant Data</h1>
+    <form id="infantDataForm" onsubmit="handleSubmit(event)" aria-label="Formulir data bayi">
+      <label for="gender">Jenis Kelamin</label>
+      <select id="gender" name="gender" required aria-required="true">
+        <option value="" disabled selected>Pilih jenis kelamin</option>
+        <option value="Laki-laki">Laki-laki</option>
+        <option value="Perempuan">Perempuan</option>
+        <option value="Lainnya">Lainnya</option>
+      </select>
+
+      <label for="name">Nama</label>
+      <input type="text" id="name" name="name" placeholder="Masukkan nama bayi" required aria-required="true" />
+
+      <label for="birthdate">Tanggal Lahir</label>
+      <input type="date" id="birthdate" name="birthdate" required aria-required="true" max="" />
+
+      <label for="birthyear">Tahun Lahir</label>
+      <input type="number" id="birthyear" name="birthyear" placeholder="Masukkan tahun lahir (e.g. 2022)" required min="1900" max="2099" aria-required="true" />
+
+      <label for="weight">Berat Badan (kg)</label>
+      <input type="number" id="weight" name="weight" placeholder="Masukkan berat badan bayi" min="0" step="0.1" required aria-required="true" />
+
+      <label for="height">Tinggi Badan (cm)</label>
+      <input type="number" id="height" name="height" placeholder="Masukkan tinggi badan bayi" min="0" step="0.1" required aria-required="true" />
+
+      <label for="childNumber">Anak ke-berapa</label>
+      <input type="number" id="childNumber" name="childNumber" placeholder="Misal: 1" min="1" required aria-required="true" />
+
+      <label>Kebutuhan Khusus</label>
+      <div class="radio-group" role="radiogroup" aria-required="true" aria-label="Apakah bayi memiliki kebutuhan khusus?">
+        <label><input type="radio" name="specialNeeds" value="Ya" required /> Ya</label>
+        <label><input type="radio" name="specialNeeds" value="Tidak" required /> Tidak</label>
+      </div>
+
+      <button type="submit" class="submit-btn">Kirim</button>
+    </form>
+  </div>
+
+<script>
+  // Set max date for birthdate input to today
+  document.getElementById('birthdate').max = new Date().toISOString().split('T')[0];
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const data = {
+      gender: form.gender.value,
+      name: form.name.value.trim(),
+      birthdate: form.birthdate.value,
+      birthyear: form.birthyear.value,
+      weight: form.weight.value,
+      height: form.height.value,
+      childNumber: form.childNumber.value,
+      specialNeeds: form.specialNeeds.value,
+    };
+
+    if(!data.gender || !data.name || !data.birthdate || !data.birthyear || !data.weight || !data.height || !data.childNumber || !data.specialNeeds) {
+      alert('Mohon lengkapi semua kolom formulir.');
+      return;
+    }
+
+    alert(
+      `Data Bayi:\n` +
+      `Nama: ${data.name}\n` +
+      `Jenis Kelamin: ${data.gender}\n` +
+      `Tanggal Lahir: ${data.birthdate}\n` +
+      `Tahun Lahir: ${data.birthyear}\n` +
+      `Berat Badan: ${data.weight} kg\n` +
+      `Tinggi Badan: ${data.height} cm\n` +
+      `Anak ke-: ${data.childNumber}\n` +
+      `Kebutuhan Khusus: ${data.specialNeeds}`
+    );
+
+    form.reset();
+
+    if(data.specialNeeds === 'Ya') {
+      // Redirect to special needs form page
+      window.location.href = 'special-needs.html';
+    } else {
+      // Redirect to parent data form page
+      window.location.href = 'parent-data.html';
+    }
+  }
+</script>
+</body>
+</html>

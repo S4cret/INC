@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Subscription Plans - Infant Nutrition Calendar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&display=swap');
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f7fa 100%);
+    color: #1c1c1e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    user-select: none;
+    text-align: center;
+  }
+
+  .plans-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    max-width: 960px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .plan-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    width: 230px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+  }
+
+  .plan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+  }
+
+  .plan-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #007aff;
+  }
+
+  .plan-price {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .plan-benefits {
+    list-style: none;
+    padding-left: 0;
+    color: #3c3c43;
+    font-size: 0.95rem;
+    flex-grow: 1;
+    margin-bottom: 1.2rem;
+  }
+
+  .plan-benefits li {
+    margin-bottom: 0.6rem;
+  }
+
+  button.select-btn {
+    background-color: #007aff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button.select-btn:hover {
+    background-color: #005fcc;
+  }
+
+  @media (max-width: 960px) {
+    .plans-container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .plan-card {
+      width: 90%;
+      max-width: 320px;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>Pilih Paket Subscription</h1>
+  <div class="plans-container" role="list" aria-label="Daftar paket subscription">
+    <article class="plan-card" role="listitem" aria-labelledby="silverTitle">
+      <h2 class="plan-title" id="silverTitle">Silver</h2>
+      <p class="plan-price">Gratis</p>
+      <ul class="plan-benefits">
+        <li>Akses dasar fitur aplikasi</li>
+        <li>Update mingguan nutrisi bayi</li>
+        <li>Dukungan komunitas</li>
+      </ul>
+      <button class="select-btn" aria-label="Pilih paket Silver" onclick="selectPlan('Silver')">Pilih</button>
+    </article>
+
+    <article class="plan-card" role="listitem" aria-labelledby="goldTitle">
+      <h2 class="plan-title" id="goldTitle">Gold</h2>
+      <p class="plan-price">Rp 30,000 / bulan</p>
+      <ul class="plan-benefits">
+        <li>Fitur Silver semua</li>
+        <li>Akses artikel premium</li>
+        <li>Rekomendasi nutrisi personal</li>
+        <li>Support chat 24/7</li>
+      </ul>
+      <button class="select-btn" aria-label="Pilih paket Gold" onclick="selectPlan('Gold')">Pilih</button>
+    </article>
+
+    <article class="plan-card" role="listitem" aria-labelledby="platinumTitle">
+      <h2 class="plan-title" id="platinumTitle">Platinum</h2>
+      <p class="plan-price">Rp 100,000 / bulan</p>
+      <ul class="plan-benefits">
+        <li>Fitur Gold semua</li>
+        <li>Sesi konsultasi ahli gizi</li>
+        <li>Program makan bayi khusus</li>
+        <li>Akses webinar eksklusif</li>
+      </ul>
+      <button class="select-btn" aria-label="Pilih paket Platinum" onclick="selectPlan('Platinum')">Pilih</button>
+    </article>
+
+    <article class="plan-card" role="listitem" aria-labelledby="annualTitle">
+      <h2 class="plan-title" id="annualTitle">Paket Tahunan</h2>
+      <p class="plan-price">Rp 1,000,000 / tahun</p>
+      <ul class="plan-benefits">
+        <li>Fitur Platinum semua</li>
+        <li>Diskon 15% dibandingkan bulanan</li>
+        <li>Akses prioritas & fitur eksklusif</li>
+        <li>Pembayaran sekaligus untuk 1 tahun</li>
+      </ul>
+      <button class="select-btn" aria-label="Pilih paket Tahunan" onclick="selectPlan('Paket Tahunan')">Pilih</button>
+    </article>
+  </div>
+
+<script>
+  function selectPlan(planName) {
+    if (planName === 'Silver') {
+      // Redirect directly to home page for free plan
+      window.location.href = 'home.html';
+    } else {
+      // For other paid plans redirect to payment form
+      window.location.href = 'payment-form.html';
+    }
+  }
+</script>
+</body>
+</html>

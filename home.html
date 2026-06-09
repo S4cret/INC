@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Home - Infant Nutrition Calendar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&display=swap');
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f7fa 100%);
+    color: #1c1c1e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    user-select: none;
+    color: #1c1c1e;
+    text-align: center;
+  }
+
+  .container {
+    backdrop-filter: saturate(180%) blur(20px);
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 2rem 2.5rem;
+    max-width: 960px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .child-info {
+    padding: 1.5rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .child-info h2 {
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #1c1c1e;
+  }
+  .child-info p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #3a3a3c;
+  }
+
+  .calendar {
+    padding: 1rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .calendar h2 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1c1c1e;
+  }
+  .calendar .month-year {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #5e5e60;
+    margin-bottom: 1rem;
+  }
+  .calendar .weekdays,
+  .calendar .days {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #6e6e73;
+    user-select: none;
+  }
+  .calendar .days div {
+    flex: 1;
+    text-align: center;
+    padding: 0.25rem 0;
+    border-radius: 8px;
+    cursor: default;
+  }
+  .calendar .days div.today {
+    background: #007aff;
+    color: white;
+    font-weight: 700;
+  }
+
+  .meal-schedule {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  .meal-card {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #1c1c1e;
+  }
+  .meal-card h3 {
+    margin: 0;
+    font-weight: 700;
+  }
+  .meal-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #3a3a3c;
+  }
+
+  .nutrition-articles {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .nutrition-articles h2 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1c1c1e;
+  }
+  .article {
+    margin-bottom: 1rem;
+  }
+  .article h3 {
+    margin: 0 0 0.3rem 0;
+    font-weight: 600;
+    color: #007aff;
+  }
+  .article p {
+    margin: 0;
+    font-size: 1rem;
+    color: #3a3a3c;
+  }
+
+  button.consult-btn {
+    align-self: center;
+    background-color: #007aff;
+    border: none;
+    border-radius: 18px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 122, 255, 0.5);
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  button.consult-btn:hover,
+  button.consult-btn:focus-visible {
+    background-color: #005ecc;
+    outline: none;
+  }
+
+  @media (max-width: 600px) {
+    .meal-schedule {
+      grid-template-columns: 1fr;
+    }
+    .container {
+      padding: 1.5rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>Selamat Datang di Infant Nutrition Calendar</h1>
+  <div class="container" role="main" aria-label="Halaman utama Infant Nutrition Calendar">
+    <section class="child-info" aria-label="Informasi Nama dan Detail Anak">
+      <h2 id="childName">Nama Anak: [Nama Anak]</h2>
+      <p id="childDetails">Detail: [Detail Anak]</p>
+    </section>
+
+    <section class="calendar" aria-label="Kalender">
+      <h2>Kalender</h2>
+      <div class="month-year" id="monthYear"></div>
+      <div class="weekdays" aria-hidden="true">
+        <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+      </div>
+      <div class="days" id="days"></div>
+    </section>
+
+    <section class="meal-schedule" aria-label="Jadwal Makan dan Kandungan Nutrisi">
+      <div class="meal-card" aria-labelledby="meal1Title">
+        <h3 id="meal1Title">Sarapan (08:00 - 09:00)</h3>
+        <p><strong>Makanan Dianjurkan:</strong> Bubur oat dengan pisang dan susu ibu</p>
+        <p><strong>Kandungan Nutrisi:</strong> Karbohidrat kompleks, kalium, protein</p>
+      </div>
+
+      <div class="meal-card" aria-labelledby="meal2Title">
+        <h3 id="meal2Title">Camilan Pagi (10:00 - 10:30)</h3>
+        <p><strong>Makanan Dianjurkan:</strong> Puree apel atau yoghurt</p>
+        <p><strong>Kandungan Nutrisi:</strong> Serat, vitamin C, probiotik</p>
+      </div>
+
+      <div class="meal-card" aria-labelledby="meal3Title">
+        <h3 id="meal3Title">Makan Siang (12:00 - 13:00)</h3>
+        <p><strong>Makanan Dianjurkan:</strong> Nasi tim dengan sayuran dan ayam cincang</p>
+        <p><strong>Kandungan Nutrisi:</strong> Karbohidrat, vitamin, protein</p>
+      </div>
+
+      <div class="meal-card" aria-labelledby="meal4Title">
+        <h3 id="meal4Title">Camilan Sore (15:00 - 15:30)</h3>
+        <p><strong>Makanan Dianjurkan:</strong> Biskuit bayi dan jus jeruk segar</p>
+        <p><strong>Kandungan Nutrisi:</strong> Karbohidrat, vitamin C, antioksidan</p>
+      </div>
+
+      <div class="meal-card" aria-labelledby="meal5Title">
+        <h3 id="meal5Title">Makan Malam (18:00 - 19:00)</h3>
+        <p><strong>Makanan Dianjurkan:</strong> Sup sayur dengan tahu dan kentang</p>
+        <p><strong>Kandungan Nutrisi:</strong> Vitamin, protein nabati, karbohidrat</p>
+      </div>
+    </section>
+
+    <section class="nutrition-articles" aria-label="Artikel Nutrisi">
+      <h2>Artikel Nutrisi</h2>
+      <article class="article" aria-labelledby="article1Title">
+        <h3 id="article1Title">Kandungan Gizi Sarapan</h3>
+        <p>Sarapan yang sehat penting untuk memulai hari. Pastikan anak mendapatkan protein, karbohidrat, dan vitamin untuk energi yang optimal.</p>
+      </article>
+      <article class="article" aria-labelledby="article2Title">
+        <h3 id="article2Title">Kandungan Gizi Makan Siang</h3>
+        <p>Makan siang harus seimbang dengan sayuran, protein, dan karbohidrat untuk mendukung pertumbuhan dan perkembangan anak.</p>
+      </article>
+    </section>
+
+    <button class="consult-btn" onclick="goToChat()" aria-label="Konsultasi dengan Ahli Gizi">Konsultasi dengan Ahli Gizi</button>
+  </div>
+
+<script>
+  const childData = {
+    name: "Bayi A",
+    details: "Laki-laki, 1 tahun, Berat: 10 kg, Tinggi: 75 cm"
+  };
+
+  document.getElementById('childName').textContent = `Nama Anak: ${childData.name}`;
+  document.getElementById('childDetails').textContent = `Detail: ${childData.details}`;
+
+  function generateCalendar() {
+    const calendarDaysElem = document.getElementById('days');
+    const monthYearElem = document.getElementById('monthYear');
+    const date = new Date();
+    const month = date.toLocaleString('id-ID', { month: 'long' });
+    const year = date.getFullYear();
+    monthYearElem.textContent = `${month} ${year}`;
+
+    calendarDaysElem.innerHTML = '';
+    const firstDay = new Date(year, date.getMonth(), 1);
+    const lastDay = new Date(year, date.getMonth() + 1, 0);
+    const firstWeekday = firstDay.getDay(); // 0 = Sunday
+
+    // Create empty divs for days before the first day
+    for(let i = 0; i < firstWeekday; i++) {
+      const emptyDiv = document.createElement('div');
+      calendarDaysElem.appendChild(emptyDiv);
+    }
+
+    // Create day number divs
+    for(let day = 1; day <= lastDay.getDate(); day++) {
+      const dayDiv = document.createElement('div');
+      dayDiv.textContent = day;
+      // Highlight today
+      if(day === date.getDate()) {
+        dayDiv.classList.add('today');
+      }
+      calendarDaysElem.appendChild(dayDiv);
+    }
+  }
+
+  function goToChat() {
+    window.location.href = 'chat.html';
+  }
+
+  generateCalendar();
+</script>
+</body>
+</html>

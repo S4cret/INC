@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chat dengan Ahli Gizi - Infant Nutrition Calendar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&display=swap');
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f7fa 100%);
+    color: #1c1c1e;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    padding: 1rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #1d1d1f;
+    user-select: none;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  #backButton {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #007aff;
+    border: none;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #backButton:hover {
+    background-color: #005fcc;
+  }
+  #chatContainer {
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .message {
+    max-width: 75%;
+    margin-bottom: 1rem;
+    padding: 0.7rem 1rem;
+    border-radius: 15px;
+    font-size: 1rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+  }
+  .user-message {
+    align-self: flex-end;
+    background-color: #007aff;
+    color: white;
+    border-bottom-right-radius: 0;
+  }
+  .nutri-message {
+    align-self: flex-start;
+    background-color: rgba(0, 109, 119, 0.9);
+    color: #d7f2f0;
+    border-bottom-left-radius: 0;
+  }
+  form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+  input[type="text"] {
+    flex-grow: 1;
+    border-radius: 20px;
+    border: 1px solid #c7c7cc;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    outline: none;
+  }
+  button.send-btn {
+    background-color: #007aff;
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button.send-btn:hover {
+    background-color: #005fcc;
+  }
+  @media (max-width: 600px) {
+    .message {
+      max-width: 90%;
+    }
+    header {
+      font-size: 1.2rem;
+    }
+    #backButton {
+      left: 0.5rem;
+      padding: 0.3rem 0.6rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <button id="backButton" aria-label="Kembali ke beranda" title="Kembali ke beranda" onclick="goBack()">← Kembali</button>
+    Chat dengan Ahli Gizi
+  </header>
+  <div id="chatContainer" aria-live="polite" aria-label="Daftar pesan chat">
+    <!-- messages will appear here -->
+  </div>
+  <form id="chatForm" aria-label="Form input pesan">
+    <input type="text" id="chatInput" placeholder="Tulis pesan Anda..." aria-label="Input pesan chat" autocomplete="off" required />
+    <button type="submit" class="send-btn" aria-label="Kirim pesan">Kirim</button>
+  </form>
+
+<script>
+  const chatContainer = document.getElementById('chatContainer');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+
+  function appendMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message');
+    if(sender === 'user') {
+      messageDiv.classList.add('user-message');
+    } else {
+      messageDiv.classList.add('nutri-message');
+    }
+    messageDiv.textContent = text;
+    chatContainer.appendChild(messageDiv);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
+
+  function nutriReply(userText) {
+    const replies = [
+      "Terima kasih atas pertanyaannya. Saya akan coba bantu.",
+      "Pastikan anak Anda mendapatkan asupan makanan seimbang setiap hari.",
+      "Apakah Anda ingin saya rekomendasikan menu makanan untuk bayi Anda?",
+      "Jangan lupa untuk selalu memperhatikan alergi pada bayi.",
+      "Jika ada keluhan khusus, segera konsultasikan dengan dokter ya."
+    ];
+    const reply = replies[Math.floor(Math.random() * replies.length)];
+    setTimeout(() => {
+      appendMessage(reply, 'nutritionist');
+    }, 1000 + Math.random() * 1500);
+  }
+
+  chatForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const userText = chatInput.value.trim();
+    if(userText === '') return;
+    appendMessage(userText, 'user');
+    chatInput.value = '';
+    nutriReply(userText);
+  });
+
+  window.onload = () => {
+    appendMessage("Halo! Saya ahli gizi Anda. Silakan kirim pertanyaan tentang nutrisi bayi Anda.", 'nutritionist');
+  };
+
+  function goBack() {
+    window.location.href = 'home.html';
+  }
+</script>
+</body>
+</html>

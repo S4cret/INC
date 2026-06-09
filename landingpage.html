@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Landing Page - Infant Nutrition Calendar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&display=swap');
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f7fa 100%);
+    color: #1c1c1e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 3rem 4rem;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 0.75rem;
+  }
+
+  .brand-logo {
+    width: 48px;
+    height: 48px;
+    fill: #007aff;
+  }
+
+  .brand-name {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #1d1d1f;
+  }
+
+  h1 {
+    color: #1d1d1f;
+    font-weight: 600;
+    font-size: 2.3rem;
+    margin: 0 0 1rem 0;
+    text-align: center;
+  }
+
+  p.subtitle {
+    text-align: center;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    color: #3c3c43;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    color: #1d1d1f;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #c7c7cc;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    outline: none;
+  }
+
+  button.submit-btn {
+    background-color: #007aff;
+    border: none;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button.submit-btn:hover {
+    background-color: #005fcc;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 2rem 0;
+    color: #6e6e73;
+    font-size: 0.9rem;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #d1d1d6;
+  }
+
+  .divider:not(:empty)::before {
+    margin-right: 0.75em;
+  }
+
+  .divider:not(:empty)::after {
+    margin-left: 0.75em;
+  }
+
+  .info-section {
+    max-width: 800px;
+    width: 100%;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    margin: 2rem 0;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #1d1d1f;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #3c3c43;
+  }
+
+  @media (max-width: 400px) {
+    .container {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Infant Nutrition Calendar Registration Landing Page">
+    <div class="brand" aria-label="Brand logo and name">
+      <svg class="brand-logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <rect x="22" y="10" width="20" height="40" rx="4" ry="4" fill="#007aff"/>
+        <rect x="26" y="6" width="12" height="6" rx="2" ry="2" fill="#005fcc"/>
+        <line x1="26" y1="20" x2="34" y2="20" stroke="white" stroke-width="2" />
+        <line x1="26" y1="28" x2="34" y2="28" stroke="white" stroke-width="2" />
+        <line x1="26" y1="36" x2="34" y2="36" stroke="white" stroke-width="2" />
+      </svg>
+      <span class="brand-name">Infant Nutrition Calendar</span>
+    </div>
+    <h1>Daftar Sekarang</h1>
+    <p class="subtitle">Setiap langkah kecil bayi Anda dimulai dari nutrisi yang tepat. Bersama Infant Nutrition Calendar, jadikan setiap suapan bermakna. Ayo bergabung dan mulai perjalanan sehat si kecil hari ini!</p>
+    <form id="registerForm" onsubmit="handleRegister(event)" aria-label="Form pendaftaran">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required aria-required="true" />
+      <label for="password">Kata Sandi</label>
+      <input type="password" id="password" name="password" placeholder="Buat kata sandi" required aria-required="true" />
+      <button type="submit" class="submit-btn">Daftar</button>
+    </form>
+    <div class="divider">atau masuk dengan</div>
+    <div class="social-login" role="region" aria-label="Login menggunakan sosial media">
+      <button class="social-btn google" aria-label="Login dengan Google" onclick="ssoLogin('Google')" type="button">
+  <img src="Google__G__logo.svg (1).png" alt="Google Logo" style="width: 20px; height: 20px;"/> <!-- Ganti dengan nama file gambar Anda -->
+  Google
+</button>
+
+      <button class="social-btn facebook" aria-label="Login dengan Facebook" onclick="ssoLogin('Facebook')" type="button">
+    <img src="Facebook_f_logo_(2019).svg.png" alt="Facebook Logo" style="width: 20px; height: 20px;"/>
+    Facebook
+      </button>
+      <button class="social-btn apple" aria-label="Login dengan Apple" onclick="ssoLogin('Apple')" type="button">
+    <img src="Apple_logo_black.svg.png" alt="Apple Logo" style="width: 20px; height: 20px;"/>
+    Apple
+      </button>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>About Us</h2>
+    <p>Infant Nutrition Calendar adalah platform yang didedikasikan untuk membantu orang tua memberikan nutrisi terbaik bagi buah hati mereka sejak dini. Kami percaya bahwa fondasi kesehatan dimulai sejak hari pertama kehidupan, dan nutrisi yang tepat memainkan peran penting dalam tumbuh kembang anak.</p>
+    <p>Melalui pendekatan berbasis ilmu dan pengalaman nyata para ahli, kami menghadirkan panduan jadwal makan bayi yang praktis, terpercaya, dan mudah diikuti. Dari MPASI pertama hingga transisi ke makanan keluarga, kami mendampingi orang tua dalam setiap tahap penting perkembangan gizi anak.</p>
+    <h3>Misi kami adalah:</h3>
+    <ul>
+      <li>Membantu orang tua memahami kebutuhan nutrisi anak berdasarkan usia dan tahap pertumbuhan.</li>
+      <li>Menyediakan kalender nutrisi yang terstruktur, lengkap dengan resep, tips, dan panduan praktis.</li>
+      <li>Membangun komunitas yang saling mendukung dalam memberikan yang terbaik untuk generasi masa depan.</li>
+    </ul>
+    <p>Dengan Infant Nutrition Calendar, setiap sendok makanan bukan hanya mengenyangkan, tetapi juga menyehatkan dan menumbuhkan.</p>
+  </div>
+
+    <div class="info-section faq">
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <h3>Apa itu Infant Nutrition Calendar?</h3>
+      <p>Infant Nutrition Calendar adalah aplikasi yang membantu orang tua merencanakan dan memantau nutrisi bayi mereka.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Bagaimana cara menggunakan website ini?</h3>
+      <p>Anda dapat mendaftar dan mengisi data bayi Anda untuk mendapatkan rekomendasi nutrisi yang sesuai.</p>
+    </div>
+  </div>
+
+<script>
+  function handleRegister(event) {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    if(email && password){
+      alert(`Registrasi berhasil untuk email: ${email}`);
+      event.target.reset();
+      // Redirect to infant data form page after registration
+      window.location.href = 'infant-data.html';
+    } else {
+      alert("Mohon isi email dan kata sandi dengan benar.");
+    }
+  }
+
+  function ssoLogin(provider) {
+    alert("Fungsi login dengan " + provider + " masih dalam pengembangan.");
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Payment Form - Infant Nutrition Calendar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&display=swap');
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f7fa 100%);
+    color: #1c1c1e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    user-select: none;
+    text-align: center;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    max-width: 480px;
+    width: 100%;
+    border-radius: 14px;
+    padding: 2rem 2rem 3rem 2rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+
+  .info-text {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.8rem;
+    font-size: 1rem;
+    color: #d7f2f0;
+    line-height: 1.4;
+  }
+
+  h2.section-title {
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-bottom: 2px solid #007aff;
+    padding-bottom: 0.3rem;
+  }
+
+  .payment-options {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .payment-option {
+    flex: 1 1 45%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #1d1d1f; /* Changed font color to a darker shade */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    border: 2px solid transparent;
+  }
+
+  .payment-option.selected {
+    background-color: #007aff;
+    color: #ffffff; /* White font color when selected */
+    box-shadow: 0 0 10px #007aff;
+    border-color: #1cbab4;
+  }
+
+  .payment-option:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  button.submit-btn {
+    background-color: #007aff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+
+  button.submit-btn:hover:enabled {
+    background-color: #005fcc;
+  }
+
+  button.submit-btn:disabled {
+    background-color: #a0d9d5;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 480px) {
+    .payment-option {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>Form Pembayaran</h1>
+  <div class="container" role="main" aria-label="Form Pembayaran">
+    <form id="paymentForm" onsubmit="handleSubmit(event)">
+      <h2 class="section-title">Pembayaran E-Wallet</h2>
+      <div class="payment-options" role="group" aria-label="Pilih metode pembayaran e-wallet">
+        <div class="payment-option" tabindex="0" role="radio" aria-checked="false" data-method="OVO" onclick="selectOption(this)" onkeydown="keySelectOption(event, this)">OVO</div>
+        <div class="payment-option" tabindex="0" role="radio" aria-checked="false" data-method="GoPay" onclick="selectOption(this)" onkeydown="keySelectOption(event, this)">GoPay</div>
+        <div class="payment-option" tabindex="0" role="radio" aria-checked="false" data-method="ShopeePay" onclick="selectOption(this)" onkeydown="keySelectOption(event, this)">ShopeePay</div>
+      </div>
+
+      <h2 class="section-title">Virtual Account Bank</h2>
+      <div class="payment-options" role="group" aria-label="Pilih metode pembayaran virtual account bank">
+        <div class="payment-option" tabindex="0" role="radio" aria-checked="false" data-method="BCA" onclick="selectOption(this)" onkeydown="keySelectOption(event, this)">Bank BCA</div>
+        <div class="payment-option" tabindex="0" role="radio" aria-checked="false" data-method="Mandiri" onclick="selectOption(this)" onkeydown="keySelectOption(event, this)">Bank Mandiri</div>
+        <div class="payment-option" tabindex="0" role="radio" aria-checked="false" data-method="BRI" onclick="selectOption(this)" onkeydown="keySelectOption(event, this)">Bank BRI</div>
+        <div class="payment-option" tabindex="0" role="radio" aria-checked="false" data-method="OCBC" onclick="selectOption(this)" onkeydown="keySelectOption(event, this)">Bank OCBC</div>
+      </div>
+
+      <button type="submit" class="submit-btn" disabled>Pilih Metode Pembayaran</button>
+    </form>
+  </div>
+
+<script>
+  const paymentForm = document.getElementById('paymentForm');
+  const options = paymentForm.querySelectorAll('.payment-option');
+  const submitBtn = paymentForm.querySelector('button.submit-btn');
+  let selectedMethod = null;
+
+  function selectOption(element) {
+    options.forEach(opt => {
+      opt.classList.remove('selected');
+      opt.setAttribute('aria-checked', 'false');
+    });
+    element.classList.add('selected');
+    element.setAttribute('aria-checked', 'true');
+    selectedMethod = element.getAttribute('data-method');
+    submitBtn.disabled = false;
+  }
+
+  // Keyboard accessibility: space + enter key to select option
+  function keySelectOption(event, element) {
+    if(event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      selectOption(element);
+      element.focus();
+    }
+  }
+
+  paymentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if(!selectedMethod) {
+      alert('Silakan pilih metode pembayaran terlebih dahulu.');
+      return;
+    }
+    alert(`Anda memilih pembayaran melalui: ${selectedMethod}. Fitur ini masih dalam pengembangan.`);
+    
+    // Redirect to home page after submission
+    window.location.href = 'home.html';
+  });
+</script>
+</body>
+</html>
